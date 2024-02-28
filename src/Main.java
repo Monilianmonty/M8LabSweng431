@@ -24,6 +24,7 @@ public class Main {
         g.getEdgesCount(k);
 
         System.out.println("Graph:\n" + g.toString());
+        g.isPath(2,15);
     }
 }
 
