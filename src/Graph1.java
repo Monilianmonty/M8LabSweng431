@@ -54,36 +54,38 @@ class Graph1<T> {
     int in = 0;
     int one,two,three,four,five,six,seven,eight,nine,ten,eleven,twelve,thirteen,fourteen,fifteen;
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder builder = new StringBuilder();
         Graph1 b = new Graph1();
-
+        int count;
+        HashMap<Integer,Integer> tempNode = new HashMap<>();
         for (T v : map.keySet()) {
             out = 0;
             builder.append(v.toString() + ": ");
-
+            count = 0;
             for (T w : map.get(v)) {
                 builder.append(w.toString() + " ");
-                out++;
-                for(T v1 :map.keySet()) {
-                    in = 0;
-                    if (v1 != w) {
-                        for (T w1 : map.get(v1)) {
-                            if (w1 == w) {
-                                in++;
-                            }
+                int value = Integer.parseInt(w.toString());
 
-                        }
-
-                    }
-
-
+                if (map.containsKey(value)) {
+                    // Increment the count for the value
+                    tempNode.put(value, tempNode.getOrDefault(value,0) + 1);
+                } else {
+                    // Add the value to the HashMap with count 1
+                    tempNode.put(value, 1);
                 }
+
+                out++;
+                System.out.println("the outdegree of " + v + " is " + out + "\n");
 
             }
 
-            System.out.println("the outdegree of " + v + " is " + out + "\n");
+            for(Integer key: tempNode.keySet()){
+                Integer val = tempNode.get(key);
+
+                System.out.println("in degree of " + key + " is " + val);
+            }
+
 
 
             builder.append("\n");
