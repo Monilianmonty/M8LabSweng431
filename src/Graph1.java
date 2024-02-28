@@ -68,10 +68,10 @@ class Graph1<T> {
                 int value = Integer.parseInt(w.toString());
 
                 if (map.containsKey(value)) {
-                    // Increment the count for the value
+                    //increment count
                     tempNode.put(value, tempNode.getOrDefault(value,0) + 1);
                 } else {
-                    // Add the value to the HashMap with count 1
+                    //add count 1
                     tempNode.put(value, 1);
                 }
 
@@ -100,41 +100,41 @@ class Graph1<T> {
     public void isPath(int u, int v) {
         //pre-condition
         if (!map.containsKey(u) || !map.containsKey(v)) {
-            System.out.println("No path exists between " + u + " and " + v);
+            System.out.println("No path between " + u + " and " + v);
             return;
         }
 
         //perform dfs starting from u
         Stack<T> stack = new Stack<>();
-        Map<T, T> parentMap = new HashMap<>(); // keep track of the parent of each vertex
+        Map<T, T> parent = new HashMap<>(); // keep track of the parent of each vertex
         stack.push((T) Integer.valueOf(u)); //starting vertex push onto stack
 
         while (!stack.isEmpty()) {
-            T current = stack.pop(); // Pop the current vertex
+            T current = stack.pop(); //pop the current vertex
             if (current.equals((T) Integer.valueOf(v))) { //if destination is reached
-                printPath(parentMap, current); //print using parent map
+                printPath(parent, current); //print using parent map
                 return;
             }
 
             //loop through neighbors of current vertex
             for (T neighbor : map.get(current)) {
-                if (!parentMap.containsKey(neighbor)) {
+                if (!parent.containsKey(neighbor)) {
                     stack.push(neighbor); //unvisited neighbors onto stack
-                    parentMap.put(neighbor, current); //update parent of neighbor
+                    parent.put(neighbor, current); //update parent of neighbor
                 }
             }
         }
 
         //if there is no path
-        System.out.println("No path exists between " + u + " and " + v);
+        System.out.println("No path between " + u + " and " + v);
     }
 
-    private void printPath(Map<T, T> parentMap, T destination) {
+    private void printPath(Map<T, T> parent, T destination) {
         List<T> path = new ArrayList<>();
         T current = destination;
         while (current != null) {
             path.add(current);
-            current = parentMap.get(current); //update curr to parent
+            current = parent.get(current); //update curr to parent
         }
         Collections.reverse(path); //reverse path to print from source to destination
         System.out.println("Path from source to destination: " + path);
